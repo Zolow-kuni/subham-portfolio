@@ -88,14 +88,17 @@ gsap.timeline({
 .to('.fog-1',       { x: '18%', ease: 'none' }, 0)
 .to('.fog-2',       { x: '-12%', ease: 'none' }, 0);
 
-/* === WALKING BOB (footstep sway) === */
-gsap.to('.ronin-img', {
-  y: -9,
-  duration: 0.38,
-  repeat: -1,
-  yoyo: true,
-  ease: 'sine.inOut',
-});
+/* === RONIN VIDEO LOOP (first 50% only — clean walk cycle) === */
+(function roninLoop() {
+  const vid = document.querySelector('.ronin-img');
+  if (!vid || vid.tagName !== 'VIDEO') return;
+  vid.addEventListener('loadedmetadata', () => {
+    const loopEnd = vid.duration * 0.50;
+    vid.addEventListener('timeupdate', () => {
+      if (vid.currentTime >= loopEnd) vid.currentTime = 0.05;
+    });
+  });
+})();
 
 /* === LEAF PARTICLES (canvas) === */
 (function initLeaves() {
