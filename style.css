@@ -585,6 +585,173 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
+   PATH OF KUNI — story components
+   ============================================================ */
+
+/* Italic story quote lines */
+.chapter-italic {
+  font-style: italic;
+  color: var(--text-muted);
+  border-left: 2px solid var(--crimson-mid);
+  padding-left: 18px;
+  margin-top: 32px;
+}
+
+/* Education cards (Ch II & III) */
+.edu-card {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin: 36px 0;
+  padding: 32px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  position: relative;
+}
+.edu-card::before {
+  content: '⚔';
+  position: absolute;
+  top: 32px; left: -18px;
+  font-size: 14px;
+  color: var(--crimson);
+  background: var(--bg-section);
+  padding: 2px 4px;
+}
+.edu-year {
+  font-family: var(--serif);
+  font-size: 12px; letter-spacing: 2px;
+  color: var(--crimson);
+  white-space: nowrap;
+  padding-top: 4px;
+  flex-shrink: 0;
+}
+.edu-title {
+  font-family: var(--serif);
+  font-size: 17px; font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.edu-school {
+  font-size: 13px; color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.edu-skills {
+  font-size: 12px; color: var(--text-dim);
+  letter-spacing: 0.5px; line-height: 1.7;
+}
+
+/* Timeline tags (Ch IV battle log) */
+.tl-tag {
+  display: inline-block;
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.tl-tag--crimson {
+  color: var(--crimson);
+  border-color: var(--crimson-mid);
+}
+.tl-dot--crimson {
+  background: var(--crimson);
+  box-shadow: 0 0 8px var(--crimson-mid);
+}
+
+/* Cert line (Ch V) */
+.cert-line {
+  margin-top: 40px;
+  font-size: 12px; letter-spacing: 1px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+.cert-highlight {
+  font-family: var(--serif);
+  color: var(--text);
+  font-size: 13px;
+}
+
+/* Mission cards (Ch VI) */
+.missions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2px;
+  margin: 36px 0;
+}
+.mission-card {
+  padding: 32px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  transition: border-color 0.3s, background 0.3s;
+  position: relative;
+}
+.mission-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 1px; background: var(--crimson);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s var(--ease-out);
+}
+.mission-card:hover { border-color: var(--crimson-mid); background: var(--crimson-low); }
+.mission-card:hover::after { transform: scaleX(1); }
+.mission-num {
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--crimson); text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.mission-name {
+  font-family: var(--serif);
+  font-size: 16px; font-weight: 500;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.mission-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.mission-key {
+  font-family: var(--serif);
+  font-size: 9px; letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+.mission-lesson {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 6px;
+}
+.mission-lesson .mission-key { color: var(--crimson); }
+
+/* GitHub CTA below missions */
+.github-cta { margin-top: 40px; }
+
+/* Final quote (Ch VII) */
+.final-quote {
+  margin-top: 52px;
+  padding: 24px 28px;
+  border-left: 2px solid var(--crimson);
+  font-family: var(--serif);
+  font-size: 16px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.final-quote cite {
+  display: block;
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--crimson);
+  font-style: normal;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+/* ============================================================
    SCROLLBAR
    ============================================================ */
 ::-webkit-scrollbar { width: 3px; }
