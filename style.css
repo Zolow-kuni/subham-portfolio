@@ -119,8 +119,18 @@ img { display: block; max-width: 100%; }
   letter-spacing: 3px;
   opacity: 0.88;
   transition: opacity 0.3s;
+  display: flex; flex-direction: column; align-items: flex-start; line-height: 1;
 }
 .logo:hover { opacity: 1; }
+.logo-kanji { display: block; }
+.logo-sub {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-weight: 500;
+}
 
 .main-nav { display: flex; align-items: center; gap: 40px; }
 
@@ -329,6 +339,53 @@ img { display: block; max-width: 100%; }
     transparent 100%
   );
   z-index: 3;
+}
+
+/* Pagoda silhouette — bottom-left atmospheric */
+.pagoda {
+  position: absolute;
+  bottom: 8.5%; left: 4%;
+  width: 62px; height: 112px;
+  z-index: 2; pointer-events: none;
+  background: rgba(5, 3, 2, 0.88);
+  clip-path: polygon(
+    35% 100%, 65% 100%,
+    65% 52%, 82% 50%, 70% 40%, 65% 41%,
+    65% 40%, 60% 28%, 76% 26%, 66% 17%, 60% 18%,
+    60% 16%, 53% 4%, 47% 4%, 40% 16%,
+    40% 18%, 34% 17%, 24% 26%, 40% 28%,
+    35% 40%, 30% 41%, 18% 50%, 35% 52%
+  );
+}
+
+/* Scroll hint — bottom-right */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; right: 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  z-index: 10; pointer-events: none;
+}
+.scroll-mouse {
+  width: 22px; height: 34px;
+  border: 1.5px solid rgba(200, 192, 176, 0.35);
+  border-radius: 11px;
+  display: flex; justify-content: center;
+  padding-top: 6px;
+}
+.scroll-wheel {
+  width: 3px; height: 7px;
+  border-radius: 2px;
+  background: var(--crimson);
+  animation: scrollBob 1.6s ease-in-out infinite;
+}
+@keyframes scrollBob {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  60%       { transform: translateY(8px); opacity: 0.2; }
+}
+.scroll-label {
+  font-family: var(--serif);
+  font-size: 8px; letter-spacing: 3px;
+  color: rgba(200, 192, 176, 0.35);
 }
 
 /* ============================================================
