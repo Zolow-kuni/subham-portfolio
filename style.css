@@ -698,7 +698,7 @@ img { display: block; max-width: 100%; }
 /* Mission cards (Ch VI) */
 .missions {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 2px;
   margin: 36px 0;
 }
@@ -1060,6 +1060,84 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
+   MOBILE MENU
+   Hidden on desktop; hamburger + overlay activate on small screens.
+   ============================================================ */
+.menu-toggle {
+  display: none;
+  position: relative;
+  width: 44px; height: 44px;
+  background: none; border: none;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  z-index: 210;
+}
+.mt-line {
+  display: block;
+  width: 24px; height: 1.5px;
+  background: var(--text-muted);
+  transition: transform 0.4s var(--ease-out), opacity 0.3s, background 0.3s;
+}
+.menu-toggle:hover .mt-line { background: var(--text); }
+.menu-toggle[aria-expanded="true"] .mt-line:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] .mt-line:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] .mt-line:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 205;
+  background: rgba(17, 17, 17, 0.985);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  padding: 96px 40px 48px;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.mobile-menu[hidden] { display: none; }
+.mobile-menu.open { opacity: 1; }
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mobile-link {
+  display: block;
+  font-family: var(--serif);
+  font-size: 26px; font-weight: 400;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.3s, padding-left 0.3s;
+}
+.mobile-link:hover,
+.mobile-link.active { color: var(--text); padding-left: 12px; }
+.mobile-link.active { color: var(--crimson); }
+
+.mobile-menu-social {
+  display: flex;
+  gap: 32px;
+  margin-top: 48px;
+}
+.mobile-menu-social a {
+  font-family: var(--serif);
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.mobile-menu-social a:hover { color: var(--text); }
+
+/* ============================================================
    SCROLLBAR
    ============================================================ */
 ::-webkit-scrollbar { width: 3px; }
@@ -1084,24 +1162,76 @@ img { display: block; max-width: 100%; }
   .inv-rule-layers { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 720px) {
+  .menu-toggle { display: flex; }
+  .main-nav { display: none; }
+  .top-nav { padding: 0 16px; z-index: 220; }
+}
+
 @media (max-width: 640px) {
   .sidebar { display: none; }
-  .top-nav { left: 0; padding: 0 20px; }
+  .top-nav { left: 0; padding: 0 16px 0 20px; }
   .hero, .chapter { margin-left: 0; width: 100%; }
-  .main-nav { gap: 18px; }
-  .nav-link { font-size: 9px; letter-spacing: 1.5px; }
   .logo { font-size: 17px; }
-  .hero-copy { right: 3%; max-width: 190px; }
-  .ht-line { font-size: 19px; letter-spacing: 4px; }
-  .ronin-stage { left: -15%; height: 65%; }
-  .sun-orb { width: 160px; height: 160px; left: 5%; }
+  .logo-sub { font-size: 7px; letter-spacing: 3px; }
+
+  /* Hero copy — rebalance to fit narrow phones without overflow */
+  .hero-copy { right: 5%; max-width: 58%; top: 44%; }
+  .ht-line { font-size: clamp(15px, 4.2vw, 20px); letter-spacing: 1.5px; }
+  .hero-tagline { font-size: 12px; margin-bottom: 28px; }
+  .hero-rule { margin-bottom: 18px; }
+
+  .ronin-stage { left: -18%; height: 64%; }
+  .sun-orb { width: 150px; height: 150px; left: 4%; top: 20%; }
   .bushido { display: none; }
+  .scroll-hint { right: 20px; bottom: 24px; }
+
+  /* Chapters */
+  .chapter { padding: 72px 24px; }
+  .chapter-title { font-size: clamp(26px, 8vw, 36px); letter-spacing: 3px; margin-bottom: 28px; }
+  .chapter-body { font-size: 14px; margin-bottom: 40px; }
+  .warrior-stats { flex-direction: column; align-items: flex-start; gap: 28px; }
+  .stat-num { font-size: 38px; }
+
+  /* Cards & grids */
+  .mission-card, .edu-card, .sword-card { padding: 24px 20px; }
+  .edu-card { flex-direction: column; gap: 8px; }
+  .edu-year { white-space: normal; }
+  .edu-card::before { top: 24px; }
+  .mission-row { grid-template-columns: 1fr; gap: 4px; }
+  .mission-key { padding-top: 0; }
   .battle-header { flex-direction: column; gap: 6px; }
-  .contact-link { padding: 20px; gap: 20px; }
-  .cl-label { width: 56px; }
+  .contact-link { padding: 18px 20px; gap: 16px; flex-wrap: wrap; }
+  .cl-value { overflow-wrap: anywhere; }
+  .final-quote { padding: 20px 22px; }
+
+  /* Investment shared components */
+  .inv-section-block { padding: 48px 0; }
+  .inv-heading { font-size: 22px; letter-spacing: 2px; margin-bottom: 28px; }
+  .inv-principles { grid-template-columns: 1fr; }
+  .inv-rule-layers { grid-template-columns: 1fr; }
+  .inv-rule-box { padding: 26px 22px; }
+  .inv-evolution { grid-template-columns: 1fr; gap: 2px; }
+  .inv-evolution::before { display: none; }
+  .inv-evo-item { padding: 20px 22px; }
+  .inv-evo-item::before { display: none; }
   .inv-diary-entry { grid-template-columns: 1fr; gap: 4px; }
   .inv-diary-entry .inv-diary-time { margin-bottom: 2px; }
-  .inv-rule-layers { grid-template-columns: 1fr; }
-  .inv-rule-box { padding: 28px 24px; }
-  .inv-principles { grid-template-columns: 1fr; }
+  .inv-final-quote { padding: 24px 22px; }
+
+  /* Portfolio movement tracker — tighten left rail for width */
+  .inv-movement { padding-left: 20px; }
+  .mv-item { padding: 0 0 20px 20px; }
+  .mv-card { padding: 18px 18px; }
+  .mv-capital { margin-left: 0; flex-basis: 100%; }
+}
+
+@media (max-width: 420px) {
+  .chapter { padding: 64px 18px; }
+  .chapter-body { margin-bottom: 32px; }
+  .hero-copy { right: 5%; max-width: 60%; }
+  .ht-line { font-size: 15px; letter-spacing: 1px; }
+  .hero-tagline { font-size: 11.5px; }
+  .mobile-menu { padding: 84px 28px 40px; }
+  .mobile-link { font-size: 23px; letter-spacing: 3px; }
 }

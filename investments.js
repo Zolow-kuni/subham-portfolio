@@ -234,7 +234,7 @@ const INVESTMENT_EVENTS = [
   if (!container) return;
 
   const dash = '<span class="unavailable">—</span>';
-  const cell = v => (v == null ? dash : `<span>${v}</span>`);
+  const value = v => (v == null ? '—' : v);
 
   let html = '<div class="inv-snap-table">';
   html += '<div class="inv-snap-row inv-snap-head"><span>Holding</span><span>Role</span><span>Qty</span><span>Avg</span><span>LTP</span><span>Position</span></div>';
@@ -242,11 +242,11 @@ const INVESTMENT_EVENTS = [
     const posClass = h.pos && h.pos.startsWith('+') ? 'inv-pos inv-pos--pos' : 'inv-pos';
     html += '<div class="inv-snap-row">';
     html += `<span class="inv-snap-name">${h.name}</span>`;
-    html += `<span class="inv-snap-role">${cell(h.role)}</span>`;
-    html += `<span>${cell(h.qty)}</span>`;
-    html += `<span>${cell(h.avg)}</span>`;
-    html += `<span>${cell(h.ltp)}</span>`;
-    html += `<span class="${posClass}">${h.pos == null ? dash : h.pos}</span>`;
+    html += `<span class="inv-snap-role">${h.role}</span>`;
+    html += `<span class="inv-snap-qty" data-label="Qty">${value(h.qty)}</span>`;
+    html += `<span class="inv-snap-avg" data-label="Avg">${value(h.avg)}</span>`;
+    html += `<span class="inv-snap-ltp" data-label="Last Close">${value(h.ltp)}</span>`;
+    html += `<span class="${posClass} inv-snap-pos" data-label="Position">${value(h.pos)}</span>`;
     html += '</div>';
   });
   html += '</div>';
@@ -393,3 +393,38 @@ gsap.from('.inv-hero-title', {
   opacity: 0, y: 30, duration: 1, ease: 'power3.out',
   scrollTrigger: { trigger: '.inv-hero', start: 'top 80%', once: true }
 });
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+(function initMobileMenu() {
+  const toggle = document.getElementById('menuToggle');
+  const menu   = document.getElementById('mobileMenu');
+  if (!toggle || !menu) return;
+
+  function setMenu(open) {
+    menu.hidden = false;
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) setTimeout(() => { if (!menu.classList.contains('open')) menu.hidden = true; }, 350);
+  }
+
+  toggle.addEventListener('click', () => {
+    const open = !menu.classList.contains('open');
+    setMenu(open);
+  });
+
+  menu.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) setMenu(false);
+  });
+})();

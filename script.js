@@ -196,3 +196,36 @@ gsap.timeline({
     }, { threshold: 0.45 }).observe(s);
   });
 })();
+
+/* === MOBILE MENU === */
+(function initMobileMenu() {
+  const toggle = document.getElementById('menuToggle');
+  const menu   = document.getElementById('mobileMenu');
+  if (!toggle || !menu) return;
+
+  function setMenu(open) {
+    menu.hidden = false;
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) setTimeout(() => { if (!menu.classList.contains('open')) menu.hidden = true; }, 350);
+  }
+
+  toggle.addEventListener('click', () => {
+    const open = !menu.classList.contains('open');
+    setMenu(open);
+  });
+
+  menu.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') setMenu(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) setMenu(false);
+  });
+})();
