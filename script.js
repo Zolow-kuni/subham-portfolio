@@ -74,26 +74,6 @@ gsap.utils.toArray('.contact-link').forEach((el, i) => {
   });
 });
 
-/* === INVESTMENT JOURNEY scroll reveals === */
-gsap.utils.toArray('.inv-section').forEach(section => {
-  gsap.from(section.querySelector('.inv-heading'), {
-    opacity: 0, y: 28, duration: 0.8, ease: 'power2.out',
-    scrollTrigger: { trigger: section, start: 'top 80%', once: true }
-  });
-
-  gsap.utils.toArray(section.querySelectorAll('.inv-principle, .inv-evo-item, .inv-holding, .inv-diary-day, .inv-rule-layer')).forEach((el, i) => {
-    gsap.from(el, {
-      opacity: 0, y: 24, duration: 0.7, delay: (i % 5) * 0.08, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
-    });
-  });
-});
-
-gsap.from('.inv-final-quote', {
-  opacity: 0, y: 40, duration: 1, ease: 'power3.out',
-  scrollTrigger: { trigger: '.inv-final-quote', start: 'top 85%', once: true }
-});
-
 /* === RONIN SCROLL WALK + PARALLAX LAYERS === */
 gsap.timeline({
   scrollTrigger: {
