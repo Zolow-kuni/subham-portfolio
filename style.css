@@ -774,6 +774,292 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
+   INVESTMENT JOURNEY — Chapter VII
+   ============================================================ */
+.chapter--investments { background: var(--bg); }
+
+.chapter-subtitle {
+  font-family: var(--sans);
+  font-size: 10px; letter-spacing: 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.inv-section {
+  margin-top: 72px;
+  padding-top: 56px;
+  border-top: 1px solid var(--border);
+}
+.inv-section:first-of-type {
+  margin-top: 40px;
+  padding-top: 0;
+  border-top: none;
+}
+
+.inv-heading {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--text);
+  margin-bottom: 36px;
+}
+
+/* Principles */
+.inv-principles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2px;
+}
+.inv-principle {
+  padding: 32px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  position: relative;
+  transition: border-color 0.35s, background 0.35s;
+}
+.inv-principle:hover { border-color: var(--crimson-mid); background: var(--crimson-low); }
+.inv-p-num {
+  font-family: var(--serif);
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--crimson);
+  display: block; margin-bottom: 12px;
+}
+.inv-p-title {
+  font-family: var(--serif);
+  font-size: 15px; font-weight: 500;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.inv-p-text {
+  font-size: 13px; color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Evolution timeline */
+.inv-evolution {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+.inv-evolution::before {
+  content: '';
+  position: absolute;
+  top: 18px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--crimson), var(--crimson-mid), transparent);
+}
+.inv-evo-item {
+  padding: 44px 24px 0;
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+.inv-evo-item::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 24px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 0 8px var(--crimson-mid);
+}
+.inv-evo-num {
+  font-family: var(--serif);
+  font-size: 28px; font-weight: 400;
+  color: rgba(155, 32, 32, 0.25);
+  display: block; margin-bottom: 12px;
+}
+.inv-evo-title {
+  font-family: var(--serif);
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--text);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.inv-evo-text {
+  font-size: 12px; color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Holdings */
+.inv-disclaimer {
+  font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.inv-holdings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+}
+.inv-holding {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  transition: border-color 0.35s, background 0.35s;
+}
+.inv-holding:hover { border-color: var(--crimson-mid); background: var(--crimson-low); }
+.inv-h-name {
+  font-family: var(--serif);
+  font-size: 13px; letter-spacing: 2px;
+  color: var(--text);
+}
+.inv-h-role {
+  font-size: 11px; color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* Diary */
+.inv-diary-day {
+  margin-top: 48px;
+  padding: 36px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+}
+.inv-diary-day:first-of-type { margin-top: 0; }
+
+.inv-diary-date {
+  font-family: var(--serif);
+  font-size: 16px; font-weight: 500;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.inv-diary-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 20px;
+}
+.inv-diary-entry {
+  display: grid;
+  grid-template-columns: 90px 100px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 20px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  font-size: 13px;
+}
+.inv-diary-time {
+  font-size: 11px; letter-spacing: 1px;
+  color: var(--text-muted);
+}
+.inv-diary-val {
+  font-family: var(--serif);
+  color: var(--text);
+  font-size: 14px;
+}
+.inv-diary-change {
+  text-align: right;
+  font-size: 12px;
+}
+.inv-diary-change--pos { color: #4a9; }
+.inv-diary-change--neg { color: var(--crimson); }
+
+.inv-diary-purchase {
+  padding: 20px 24px;
+  border-left: 2px solid var(--crimson);
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+.inv-diary-purchase strong { color: var(--text); }
+
+.inv-diary-lesson {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  border-left: 2px solid var(--crimson-mid);
+  padding-left: 18px;
+  margin-top: 16px;
+}
+
+.inv-diary-mantra {
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: 6px;
+  color: var(--crimson);
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* Rule box */
+.inv-rule-box {
+  padding: 40px;
+  border: 1px solid var(--crimson-mid);
+  background: var(--crimson-low);
+  position: relative;
+}
+.inv-rule-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 2px;
+  background: var(--crimson);
+}
+.inv-rule-statement {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  max-width: 600px;
+}
+
+.inv-rule-layers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-bottom: 28px;
+}
+.inv-rule-layer {
+  padding: 20px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+  text-align: center;
+}
+.inv-rl-label {
+  display: block;
+  font-family: var(--serif);
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--crimson);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.inv-rl-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.inv-rule-note {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+/* Final quote */
+.inv-final-quote {
+  margin-top: 72px;
+  padding: 36px 32px;
+  border-left: 2px solid var(--crimson);
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.2vw, 24px);
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* ============================================================
    SCROLLBAR
    ============================================================ */
 ::-webkit-scrollbar { width: 3px; }
@@ -791,6 +1077,11 @@ img { display: block; max-width: 100%; }
   .ht-line { font-size: 26px; letter-spacing: 5px; }
   .sun-orb { width: 220px; height: 220px; }
   .ronin-stage { left: -8%; height: 75%; }
+  .inv-evolution { grid-template-columns: 1fr; gap: 2px; }
+  .inv-evolution::before { display: none; }
+  .inv-evo-item { padding: 24px 28px; }
+  .inv-evo-item::before { display: none; }
+  .inv-rule-layers { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -808,4 +1099,9 @@ img { display: block; max-width: 100%; }
   .battle-header { flex-direction: column; gap: 6px; }
   .contact-link { padding: 20px; gap: 20px; }
   .cl-label { width: 56px; }
+  .inv-diary-entry { grid-template-columns: 1fr; gap: 4px; }
+  .inv-diary-entry .inv-diary-time { margin-bottom: 2px; }
+  .inv-rule-layers { grid-template-columns: 1fr; }
+  .inv-rule-box { padding: 28px 24px; }
+  .inv-principles { grid-template-columns: 1fr; }
 }
