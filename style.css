@@ -754,6 +754,33 @@ img { display: block; max-width: 100%; }
 /* GitHub CTA below missions */
 .github-cta { margin-top: 40px; }
 
+/* Battle evidence thumbnail (inside mission-card) */
+.battle-thumb {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--crimson-low);
+  margin: 4px 0 16px;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.mission-source,
+.mission-source a {
+  font-family: var(--serif);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--crimson);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.mission-source a { border-bottom: 1px solid var(--crimson-mid); }
+.mission-source a:hover { color: var(--crimson-mid); border-bottom-color: var(--crimson); }
+
 /* Final quote (Ch VII) */
 .final-quote {
   margin-top: 52px;
