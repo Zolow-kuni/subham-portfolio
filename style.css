@@ -233,6 +233,28 @@ img { display: block; max-width: 100%; }
   bottom: 7.5%; left: -3%;
   height: 87%; z-index: 2;
   display: flex; align-items: flex-end;
+  /* Dissolve the container's rectangular boundary so the samurai
+     appears to emerge from the hero background instead of sitting in
+     a visible video box. The mask keeps the figure (upper-centre)
+     fully opaque while fading the surrounding dark canvas — especially
+     the large black lower region and the bottom-right watermark — into
+     the page background. */
+  -webkit-mask-image:
+    linear-gradient(to bottom,
+      transparent 0%, #000 8%, #000 34%, rgba(0,0,0,0.94) 66%,
+      rgba(0,0,0,0.62) 74%, transparent 86%),
+    linear-gradient(to right,
+      transparent 0%, rgba(0,0,0,0.9) 10%, #000 18%, #000 84%,
+      rgba(0,0,0,0.8) 92%, transparent 100%);
+          mask-image:
+    linear-gradient(to bottom,
+      transparent 0%, #000 8%, #000 34%, rgba(0,0,0,0.94) 66%,
+      rgba(0,0,0,0.62) 74%, transparent 86%),
+    linear-gradient(to right,
+      transparent 0%, rgba(0,0,0,0.9) 10%, #000 18%, #000 84%,
+      rgba(0,0,0,0.8) 92%, transparent 100%);
+  -webkit-mask-composite: source-in;
+          mask-composite: intersect;
 }
 .ronin-img {
   height: 100%; width: auto;
