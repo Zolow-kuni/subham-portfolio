@@ -109,6 +109,57 @@ const LEARNING = [
 ];
 
 /* ============================================================
+   PORTFOLIO EVOLUTION (VALUE LADDER) DATA
+   ------------------------------------------------------------
+   A clean value-progression ladder, newest last.
+   Each step is a recorded point in the journal. Add a future
+   snapshot by appending an object here — it renders in order.
+   `invested` / `portfolio` may be null when not yet recorded.
+   ============================================================ */
+const PORTFOLIO_VALUES = [
+  { step: 'Day 1',   date: '24 Aug', invested: '~₹477', portfolio: '~₹490' },
+  { step: 'Day 2',   date: '28 Aug', invested: '₹623',  portfolio: '₹630' },
+  { step: 'Day 3',   date: '31 Aug', invested: '~₹1,210', portfolio: null }
+];
+
+/* ============================================================
+   DISCUSSIONS / THOUGHTS DATA
+   ------------------------------------------------------------
+   Field-note entries that are not part of a single day's diary.
+   `tag` is a short crimson category label; `text` is the note.
+   Newest first — place them at the TOP of the array.
+   Only thoughts that are actually recorded in the journal are
+   included here. No fabricated reasoning.
+   ============================================================ */
+const DISCUSSIONS = [
+  {
+    tag: 'THESIS SHIFT',
+    title: 'From buy-and-forget to regular investing',
+    text: 'My original habit was buying a stock and forgetting it. That has shifted: invest some money at regular intervals, keep a diversified core, and review holdings periodically rather than letting them sit unattended.'
+  },
+  {
+    tag: 'WHY NOT MTF',
+    title: 'Borrowing to grow the portfolio',
+    text: 'MTF lets you buy with borrowed capital, which can amplify losses as easily as gains. I decided this portfolio is built with 100% personal capital — no leverage. A small portfolio grown consistently beats a large one built on borrowed risk.'
+  },
+  {
+    tag: 'CONCEPT',
+    title: 'Two silver products, one asset class',
+    text: 'TATSILV and AONESILVER both express silver exposure through different products. Owning both does not diversify the portfolio toward silver risk — it concentrates it. The same reasoning applies to gold.'
+  },
+  {
+    tag: 'OBSERVATION',
+    title: 'Individual holdings, one portfolio',
+    text: 'MMTC may be red while TATAGOLD is green on the same day. A single losing position does not mean the whole portfolio is performing badly. Judging it requires reading the whole, not one line.'
+  },
+  {
+    tag: 'REFUSAL',
+    title: 'I bought gold exposure, not a bet',
+    text: 'TATAGOLD is held for gold exposure as part of a diversified mix — a foundation, not a short-term bet. The intention is long-term allocation rather than chasing metal-price moves.'
+  }
+];
+
+/* ============================================================
    PORTFOLIO MOVEMENT DATA
    ------------------------------------------------------------
    Append a new object to add an entry (renders automatically).
@@ -255,6 +306,30 @@ const INVESTMENT_EVENTS = [
 })();
 
 /* ============================================================
+   RENDER PORTFOLIO EVOLUTION (VALUE LADDER)
+   ============================================================ */
+(function renderEvolution() {
+  const container = document.getElementById('evolutionValues');
+  if (!container) return;
+
+  const value = v => (v == null ? '<span class="unavailable">—</span>' : v);
+
+  let html = '';
+  PORTFOLIO_VALUES.forEach(v => {
+    html += '<div class="inv-value-row">';
+    html += `<div class="inv-value-info">`;
+    html += `<span class="inv-value-step">${escapeHtml(v.step)}</span>`;
+    html += `<span class="inv-value-date">${escapeHtml(v.date)}</span>`;
+    html += '</div>';
+    html += `<div class="inv-value-cell inv-value-invested"><span class="inv-value-label">Invested</span>${value(v.invested)}</div>`;
+    html += `<div class="inv-value-cell inv-value-portfolio"><span class="inv-value-label">Portfolio</span>${value(v.portfolio)}</div>`;
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+})();
+
+/* ============================================================
    RENDER INVESTMENT DIARY (editorial, expandable)
    ============================================================ */
 function escapeHtml(s) {
@@ -321,6 +396,24 @@ document.addEventListener('click', function (e) {
 })();
 
 /* ============================================================
+   RENDER DISCUSSIONS / THOUGHTS
+   ============================================================ */
+(function renderDiscussions() {
+  const container = document.getElementById('discussions');
+  if (!container) return;
+
+  let html = '';
+  DISCUSSIONS.forEach(d => {
+    html += '<article class="inv-discussion">';
+    html += `<span class="inv-disc-tag">${escapeHtml(d.tag)}</span>`;
+    html += `<h3 class="inv-disc-title">${escapeHtml(d.title)}</h3>`;
+    html += `<p class="inv-disc-text">${escapeHtml(d.text)}</p>`;
+    html += '</article>';
+  });
+  container.innerHTML = html;
+})();
+
+/* ============================================================
    RENDER MOVEMENT TRACKER
    ============================================================ */
 (function renderMovement() {
@@ -375,7 +468,7 @@ gsap.utils.toArray('.inv-section-block').forEach(section => {
   });
 
   gsap.utils.toArray(
-    section.querySelectorAll('.inv-principle, .inv-evo-item, .mv-item, .inv-diary-card, .inv-learning-item, .inv-rule-layer')
+    section.querySelectorAll('.inv-principle, .inv-evo-item, .mv-item, .inv-diary-card, .inv-learning-item, .inv-discussion, .inv-rule-layer')
   ).forEach((el, i) => {
     gsap.from(el, {
       opacity: 0, y: 24, duration: 0.7, delay: (i % 6) * 0.08, ease: 'power2.out',
