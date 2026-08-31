@@ -829,6 +829,106 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============================================================
+   IDENTITY BAND (recruiter-scannable, under hero)
+   ============================================================ */
+.identity-band {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-section);
+}
+.identity-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 44px 48px;
+  display: grid;
+  grid-template-columns: 240px 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+.identity-kicker {
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--crimson); text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.identity-name {
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 400; letter-spacing: 2px;
+  color: var(--text);
+  line-height: 1.1; margin-bottom: 8px;
+}
+.identity-role {
+  font-size: 12px; letter-spacing: 2px;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.identity-stats {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.identity-stat { display: flex; flex-direction: column; gap: 4px; }
+.identity-stat-key {
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.identity-stat-val {
+  font-size: 14px; color: var(--text);
+  line-height: 1.5;
+}
+.identity-ctas {
+  display: flex; flex-direction: column; gap: 18px;
+  align-items: flex-start;
+  white-space: nowrap;
+}
+.identity-cta--primary { color: var(--text); }
+
+/* ============================================================
+   CURRENT STATE (compact block)
+   ============================================================ */
+.current-state {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.current-state-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 64px 48px;
+}
+.current-state-label {
+  font-family: var(--sans);
+  font-size: 10px; letter-spacing: 4px;
+  color: var(--crimson); text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.current-state-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 32px;
+}
+.cs-cell {
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  background: var(--bg-section);
+}
+.cs-key {
+  display: block;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--text-muted); text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.cs-val {
+  font-size: 13px; line-height: 1.7;
+  color: var(--text-muted); margin: 0;
+}
+.current-state-link {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--text-muted); text-transform: uppercase;
+  transition: color 0.3s;
+}
+.current-state-link:hover { color: var(--text); }
+.current-state-link:hover .cta-arrow { width: 76px; }
+
+/* ============================================================
    INVESTMENT JOURNEY — Chapter VII
    ============================================================ */
 .chapter--investments { background: var(--bg); }
@@ -1337,6 +1437,18 @@ img { display: block; max-width: 100%; }
   /* Investment teaser */
   .invteaser-metrics { gap: 28px; }
   .invteaser-m-value { font-size: 34px; }
+
+  /* Identity band — stack on mobile */
+  .identity-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 40px 24px;
+  }
+  .identity-ctas { flex-direction: row; flex-wrap: wrap; gap: 22px; }
+
+  /* Current state — stack cards */
+  .current-state-inner { padding: 56px 24px; }
+  .current-state-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 420px) {
@@ -1349,4 +1461,5 @@ img { display: block; max-width: 100%; }
   .mobile-link { font-size: 23px; letter-spacing: 3px; }
   .invteaser-metrics { gap: 20px; }
   .invteaser-m-value { font-size: 28px; }
+  .identity-ctas { flex-direction: column; gap: 18px; }
 }

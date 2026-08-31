@@ -408,6 +408,157 @@
   color: var(--text-muted);
 }
 
+/* === MARKET SESSION (31 Aug 2026) === */
+.inv-sessions { display: flex; flex-direction: column; gap: 24px; }
+.inv-session {
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--crimson);
+  padding: 30px 30px 28px;
+  background: var(--bg-section);
+}
+.inv-session-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.inv-session-meta { display: flex; flex-direction: column; gap: 4px; }
+.inv-session-date {
+  font-family: var(--serif);
+  font-size: 22px; font-weight: 500; letter-spacing: 1px;
+  color: var(--text);
+}
+.inv-session-subject {
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.inv-session-tagline {
+  font-family: var(--serif);
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--crimson); text-transform: uppercase;
+}
+.inv-session-open {
+  font-size: 13px; line-height: 1.8;
+  color: var(--text-muted); margin-bottom: 24px;
+}
+.inv-session-points {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+  margin-bottom: 24px;
+}
+.inv-ses-pt {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 18px 16px;
+  border-right: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  position: relative;
+  min-width: 0;
+}
+.inv-ses-pt:first-child { border-left: none; }
+.inv-ses-pt:last-child { border-right: none; }
+.inv-ses-time {
+  font-size: 10px; letter-spacing: 2px;
+  color: var(--text-muted); text-transform: uppercase;
+}
+.inv-ses-value {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 400;
+  color: var(--text);
+  white-space: nowrap;
+}
+.inv-ses-today { font-size: 11px; }
+.inv-ses-today--neg { color: var(--text-muted); }
+.inv-ses-today--pos { color: var(--crimson); }
+.inv-ses-note {
+  font-size: 10px; letter-spacing: 2px;
+  color: var(--text-dim); text-transform: uppercase;
+}
+.inv-ses-note--low { color: var(--crimson); }
+.inv-ses-note--best { color: var(--crimson); }
+.inv-session-moves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 18px;
+}
+.inv-ses-move {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+}
+.inv-ses-move-label {
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--crimson); text-transform: uppercase;
+}
+.inv-ses-move-name {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 500; letter-spacing: 1px;
+  color: var(--text);
+}
+.inv-ses-move-change {
+  font-family: var(--serif);
+  font-size: 14px; color: var(--text-muted);
+}
+.inv-ses-move-detail {
+  font-size: 12px; line-height: 1.7;
+  color: var(--text-muted); margin-top: 2px;
+}
+.inv-session-steady {
+  font-size: 12px; line-height: 1.8;
+  color: var(--text-dim); font-style: italic;
+  margin-bottom: 0;
+}
+
+/* === SESSION KEY TAKEAWAYS === */
+.inv-takeaways-wrap { max-width: 760px; }
+.inv-takeaways {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 0;
+  counter-reset: takeaway;
+}
+.inv-takeaway {
+  display: flex; gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  counter-increment: takeaway;
+}
+.inv-takeaway:last-child { border-bottom: none; }
+.inv-takeaway-num::before { content: counter(takeaway, decimal-leading-zero); }
+.inv-takeaway-num {
+  font-family: var(--serif);
+  font-size: 13px; color: var(--crimson);
+  flex-shrink: 0; letter-spacing: 1px;
+}
+.inv-takeaway p {
+  font-size: 14px; line-height: 1.8;
+  color: var(--text-muted); margin: 0;
+}
+
+/* === SESSION DECISION === */
+.inv-decision-block {
+  max-width: 760px;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--crimson);
+  background: var(--bg-section);
+  padding: 26px 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.inv-decision, .inv-decision-watch, .inv-decision-reason {
+  margin: 0;
+  font-size: 15px; line-height: 1.7;
+  color: var(--text);
+}
+.inv-decision-label {
+  display: inline-block;
+  min-width: 84px;
+  font-size: 9px; letter-spacing: 3px;
+  color: var(--crimson); text-transform: uppercase;
+  margin-right: 6px;
+}
+
 /* === CLOSING === */
 .inv-closing {
   padding: 80px 0 0;
@@ -507,4 +658,22 @@
   /* Rule */
   .inv-rule-box { padding: 24px 20px; }
   .inv-rule-statement { font-size: 15px; }
+
+  /* Market session — recompose to vertical stack */
+  .inv-session { padding: 22px 18px; }
+  .inv-session-head { flex-direction: column; gap: 12px; }
+  .inv-session-points { grid-template-columns: 1fr; gap: 1px; }
+  .inv-ses-pt {
+    border-left: none; border-right: none;
+    border-top: 1px solid var(--border);
+    padding: 14px 4px;
+    flex-direction: row; align-items: baseline; gap: 10px;
+    flex-wrap: wrap;
+  }
+  .inv-ses-pt:first-child { border-top: none; }
+  .inv-ses-time { min-width: 52px; }
+  .inv-ses-note { margin-left: auto; }
+  .inv-session-moves { grid-template-columns: 1fr; }
+  .inv-decision-block { padding: 22px 18px; }
+  .inv-decision-label { display: block; margin-bottom: 2px; }
 }

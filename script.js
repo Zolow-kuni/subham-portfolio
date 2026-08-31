@@ -5,6 +5,9 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReduced) {
 /* === HERO ENTRANCE SEQUENCE === */
 const hero = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
@@ -88,10 +91,13 @@ gsap.timeline({
 .to('.fog-1',       { x: '18%', ease: 'none' }, 0)
 .to('.fog-2',       { x: '-12%', ease: 'none' }, 0);
 
+} /* end: !prefersReduced */
+
 /* === LEAF PARTICLES (canvas) === */
 (function initLeaves() {
   const canvas = document.getElementById('leavesCanvas');
   if (!canvas) return;
+  if (prefersReduced) return;
 
   const ctx = canvas.getContext('2d');
   let W, H, leaves = [], animId = null;

@@ -10,6 +10,8 @@
 
 gsap.registerPlugin(ScrollTrigger);
 
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ============================================================
    PORTFOLIO SNAPSHOT DATA
    ------------------------------------------------------------
@@ -38,16 +40,16 @@ const DIARY_ENTRIES = [
     num: 'Entry 03',
     date: 'August 31, 2026',
     title: 'The Strategy in Action',
-    summary: 'The philosophy turned into a regular contribution — 1 MOLOWVOL and 2 NIFTYBEES added, then a red morning observed without panic.',
-    metrics: ['New capital ~₹586.88', 'Invested ~₹1,210–1,211'],
-    lesson: 'A red day is not automatically a reason to sell.',
+    summary: '1 MOLOWVOL and 2 NIFTYBEES added as a regular contribution, then a red morning ridden out to a near-full recovery — no trades.',
+    metrics: ['New capital ~₹586.88', 'Invested ₹1,211'],
+    lesson: 'A red open is not automatically a reason to sell.',
     full: [
       'The journey shifted from "buy a stock and forget it" to "invest some money at regular intervals."',
-      'Morning plan: buy 1 MOLOWVOL and 2 NIFTYBEES. The orders were initially pending, then executed.',
-      'After execution, about ₹586.88 of new capital was added, taking invested capital to roughly ₹1,210–₹1,211 before minor charges and rounding.',
-      'Intraday: 9:19 AM ₹1,205 (-₹6.26 / -0.52%); 10:26 AM ₹1,203 (-₹7.81 / -0.64%); 11:03 AM ₹1,204 (-₹7.02 / -0.58%).',
-      'SUZLON came under pressure, TATAGOLD remained a positive contributor, and TATSILV improved somewhat. No exits were recorded.',
-      'A loss of a few rupees on a roughly ₹1,200 portfolio is normal short-term noise. The important variable is the long-term contribution schedule and the quality and diversification of the holdings — not whether one morning finishes green or red.'
+      'Morning plan: add 1 MOLOWVOL and 2 NIFTYBEES as a regular contribution. About ₹586.88 of new capital was deployed, taking invested capital to ₹1,211.',
+      'The market opened red and declined through the morning. The portfolio reached its session low at 10:26 AM (₹1,203, -1.16% today) before recovering.',
+      'By 3:35 PM the portfolio stood at ₹1,211 — a new best of the day (-0.55% today) — a strong recovery from the morning drawdown.',
+      'SUZLON reversed from roughly -1.95% to +1.35%, and TATAGOLD stayed the most consistent gainer (~+2.98% at the final checkpoint). No positions were sold.',
+      'A red morning on a roughly ₹1,200 portfolio is normal short-term noise. The important variable is the long-term contribution schedule and the quality and diversification of the holdings — not whether one morning finishes green or red.'
     ]
   },
   {
@@ -105,7 +107,9 @@ const LEARNING = [
   'Avoiding panic selling',
   'Avoiding price chasing',
   'Observing portfolio behavior',
-  'How individual holdings affect the overall portfolio'
+  'How individual holdings affect the overall portfolio',
+  'An intraday drawdown does not define a full session',
+  'Reading the whole portfolio, not a single morning'
 ];
 
 /* ============================================================
@@ -119,7 +123,7 @@ const LEARNING = [
 const PORTFOLIO_VALUES = [
   { step: 'Day 1',   date: '24 Aug', invested: '~₹477', portfolio: '~₹490' },
   { step: 'Day 2',   date: '28 Aug', invested: '₹623',  portfolio: '₹630' },
-  { step: 'Day 3',   date: '31 Aug', invested: '~₹1,210', portfolio: null }
+  { step: 'Day 3',   date: '31 Aug', invested: '₹1,211', portfolio: '₹1,211' }
 ];
 
 /* ============================================================
@@ -160,6 +164,63 @@ const DISCUSSIONS = [
 ];
 
 /* ============================================================
+   MARKET SESSION DATA (31 Aug 2026)
+   ------------------------------------------------------------
+   A dedicated intraday session artifact. `points` are the
+   timestamped checkpoints (time, portfolio value, today's loss %,
+   and an optional highlight label). Faithful to the session
+   report — no figures are invented or altered.
+   ============================================================ */
+const MARKET_SESSIONS = [
+  {
+    date: '31 Aug 2026',
+    subject: 'Intraday P&L Movement — Equity Portfolio',
+    tagline: 'DRAWDOWN → RECOVERY',
+    open: 'Invested value ₹1,211; market opened red',
+    points: [
+      { time: '09:19', value: '₹1,205', today: '-1.03%', note: 'Opened red' },
+      { time: '10:26', value: '₹1,203', today: '-1.16%', note: 'Session low' },
+      { time: '11:03', value: '₹1,204', today: '-1.09%', note: 'Early recovery' },
+      { time: '13:27', value: '₹1,207', today: '-0.88%', note: 'Best so far' },
+      { time: '14:22', value: '₹1,205', today: '-1.02%', note: 'Gave back some gain' },
+      { time: '15:35', value: '₹1,211', today: '-0.55%', note: 'New best' }
+    ],
+    moves: [
+      { label: 'KEY MOVE', name: 'SUZLON', change: '-1.95% → +1.35%', detail: 'Weakest for most of the day, then a sharp reversal. LTP ₹46.01 → ₹47.52 by 3:35 PM.' },
+      { label: 'CONSISTENT STRENGTH', name: 'TATAGOLD', change: '~+2.98%', detail: 'Most consistent gainer. Peak ~+3.12%, ~+2.98% at the final checkpoint.' }
+    ],
+    steady: 'NIFTYBEES ended essentially at breakeven. AONESILVER, MMTC, MOLOWVOL and TATSILV remained mildly negative and stable throughout.'
+  }
+];
+
+/* ============================================================
+   SESSION TAKEAWAYS DATA
+   ------------------------------------------------------------
+   Editorial takeaways from the 31 Aug session report.
+   Faithful to the source; nothing added or invented.
+   ============================================================ */
+const SESSION_TAKEAWAYS = [
+  'The portfolio moved from a -1.16% intraday low at 10:26 AM to -0.55% by 3:35 PM — a strong recovery despite the choppy dip around 2:22 PM.',
+  'SUZLON was the standout mover: the weakest holding for most of the day, reaching as low as -1.95%, before reversing sharply to +1.35%.',
+  'TATAGOLD was the most consistent gainer — roughly +3.12% at peak and about +2.98% at the final checkpoint.',
+  'NIFTYBEES tracked close to flat for most of the day and ended essentially at breakeven.',
+  'AONESILVER, MMTC, MOLOWVOL and TATSILV remained mildly negative and stable throughout the session.',
+  'No trades or position exits were recorded. All movement reflects unrealized mark-to-market changes.'
+];
+
+/* ============================================================
+   SESSION DECISION DATA
+   ------------------------------------------------------------
+   The decision drawn from the session report, reproduced
+   faithfully — not converted into broader financial advice.
+   ============================================================ */
+const SESSION_DECISION = {
+  decision: 'No rebalancing action indicated based on today\u2019s movement.',
+  watch: 'SUZLON volatility',
+  reason: 'The scale of its intraday swing.'
+};
+
+/* ============================================================
    PORTFOLIO MOVEMENT DATA
    ------------------------------------------------------------
    Append a new object to add an entry (renders automatically).
@@ -180,6 +241,18 @@ const INVESTMENT_EVENTS = [
       '|Reason|Adding regular diversification to equity exposure.',
       '|Concept|Portfolio diversification.',
       '|Learning|A new purchase should strengthen what the portfolio lacks rather than chase recent performance.'
+    ]
+  },
+  {
+    date: '31 Aug 2026',
+    month: 'August',
+    type: 'REVIEW',
+    instrument: 'Market session',
+    capital: '₹1,211 invested',
+    lines: [
+      '|Session|Intraday low -1.16% at 10:26 AM; new best -0.55% at 3:35 PM.',
+      '|Mover|SUZLON reversed from -1.95% to +1.35%.',
+      '|Decision|No rebalancing indicated. No trades recorded.'
     ]
   },
   {
@@ -414,6 +487,89 @@ document.addEventListener('click', function (e) {
 })();
 
 /* ============================================================
+   RENDER MARKET SESSION (intraday drawdown -> recovery)
+   ============================================================ */
+(function renderMarketSession() {
+  const container = document.getElementById('marketSession');
+  if (!container) return;
+
+  let html = '';
+  MARKET_SESSIONS.forEach(s => {
+    html += '<article class="inv-session">';
+    html += `<div class="inv-session-head">`;
+    html += `<div class="inv-session-meta">`;
+    html += `<span class="inv-session-date">${escapeHtml(s.date)}</span>`;
+    html += `<span class="inv-session-subject">${escapeHtml(s.subject)}</span>`;
+    html += '</div>';
+    html += `<span class="inv-session-tagline">${escapeHtml(s.tagline)}</span>`;
+    html += '</div>';
+
+    html += `<p class="inv-session-open">${escapeHtml(s.open)}</p>`;
+
+    html += '<div class="inv-session-points">';
+    s.points.forEach((p, i) => {
+      const isLow = p.note.toLowerCase().indexOf('low') !== -1;
+      const isBest = p.note.toLowerCase().indexOf('best') !== -1;
+      const last = i === s.points.length - 1;
+      html += '<div class="inv-ses-pt">';
+      html += `<span class="inv-ses-time">${p.time}</span>`;
+      html += `<span class="inv-ses-value">${p.value}</span>`;
+      html += `<span class="inv-ses-today ${last ? 'inv-ses-today--pos' : 'inv-ses-today--neg'}">${p.today}</span>`;
+      html += `<span class="inv-ses-note ${isLow ? 'inv-ses-note--low' : ''} ${isBest ? 'inv-ses-note--best' : ''}">${escapeHtml(p.note)}</span>`;
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<div class="inv-session-moves">';
+    s.moves.forEach(m => {
+      html += '<div class="inv-ses-move">';
+      html += `<span class="inv-ses-move-label">${escapeHtml(m.label)}</span>`;
+      html += `<span class="inv-ses-move-name">${escapeHtml(m.name)}</span>`;
+      html += `<span class="inv-ses-move-change">${escapeHtml(m.change)}</span>`;
+      html += `<p class="inv-ses-move-detail">${escapeHtml(m.detail)}</p>`;
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += `<p class="inv-session-steady">${escapeHtml(s.steady)}</p>`;
+    html += '</article>';
+  });
+
+  container.innerHTML = html;
+})();
+
+/* ============================================================
+   RENDER SESSION TAKEAWAYS (editorial)
+   ============================================================ */
+(function renderSessionTakeaways() {
+  const container = document.getElementById('sessionTakeaways');
+  if (!container) return;
+
+  let html = '<ol class="inv-takeaways">';
+  SESSION_TAKEAWAYS.forEach(t => {
+    html += `<li class="inv-takeaway"><span class="inv-takeaway-num"></span><p>${escapeHtml(t)}</p></li>`;
+  });
+  html += '</ol>';
+  container.innerHTML = html;
+})();
+
+/* ============================================================
+   RENDER SESSION DECISION
+   ============================================================ */
+(function renderSessionDecision() {
+  const container = document.getElementById('sessionDecision');
+  if (!container) return;
+
+  let html = '';
+  html += '<div class="inv-decision-block">';
+  html += `<p class="inv-decision"><span class="inv-decision-label">Decision</span>${escapeHtml(SESSION_DECISION.decision)}</p>`;
+  html += `<p class="inv-decision-watch"><span class="inv-decision-label">Watch</span>${escapeHtml(SESSION_DECISION.watch)}</p>`;
+  html += `<p class="inv-decision-reason"><span class="inv-decision-label">Reason</span>${escapeHtml(SESSION_DECISION.reason)}</p>`;
+  html += '</div>';
+  container.innerHTML = html;
+})();
+
+/* ============================================================
    RENDER MOVEMENT TRACKER
    ============================================================ */
 (function renderMovement() {
@@ -461,6 +617,7 @@ document.addEventListener('click', function (e) {
 /* ============================================================
    SCROLL REVEALS
    ============================================================ */
+if (!prefersReduced) {
 gsap.utils.toArray('.inv-section-block').forEach(section => {
   gsap.from(section.querySelector('.inv-heading'), {
     opacity: 0, y: 28, duration: 0.8, ease: 'power2.out',
@@ -468,7 +625,7 @@ gsap.utils.toArray('.inv-section-block').forEach(section => {
   });
 
   gsap.utils.toArray(
-    section.querySelectorAll('.inv-principle, .inv-evo-item, .mv-item, .inv-diary-card, .inv-learning-item, .inv-discussion, .inv-rule-layer')
+    section.querySelectorAll('.inv-principle, .inv-evo-item, .mv-item, .inv-diary-card, .inv-learning-item, .inv-discussion, .inv-rule-layer, .inv-session, .inv-takeaway, .inv-decision-block')
   ).forEach((el, i) => {
     gsap.from(el, {
       opacity: 0, y: 24, duration: 0.7, delay: (i % 6) * 0.08, ease: 'power2.out',
@@ -486,6 +643,7 @@ gsap.from('.inv-hero-title', {
   opacity: 0, y: 30, duration: 1, ease: 'power3.out',
   scrollTrigger: { trigger: '.inv-hero', start: 'top 80%', once: true }
 });
+} /* end: !prefersReduced */
 
 /* ============================================================
    MOBILE MENU
