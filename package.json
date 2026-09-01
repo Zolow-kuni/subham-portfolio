@@ -1,0 +1,16 @@
+{
+  "name": "subham-portfolio",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Private Investment Journal — Phase 2 foundation (Vercel Functions + Neon Postgres). Public portfolio untouched.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0"
+  }
+}
