@@ -2,12 +2,12 @@
 
 Personal portfolio site for Subham Joshi, Data Analyst based in India.
 
-**Live site:** https://zolow-kuni.github.io/subham-portfolio/
+**Live site:** https://subham-portfolio-six-tau.vercel.app
 
 ## Stack
 
 - Vanilla HTML / CSS / JavaScript — no frameworks, no build step
-- GitHub Pages for hosting
+- Deployed through Vercel
 
 ## Files
 
