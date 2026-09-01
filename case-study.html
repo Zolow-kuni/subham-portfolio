@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automatidata × NYC TLC — Case Study | Subham Joshi</title>
+  <meta name="description" content="Case study: Automatidata × NYC TLC taxi fare analysis — a Google Advanced Data Analytics Certificate capstone exploring what drives New York City taxi fares.">
+  <meta name="theme-color" content="#151515">
+  <meta name="robots" content="index, follow">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect fill='%23151515' width='64' height='64'/><text y='50' x='8' font-size='46' fill='%23c8c0b0'>浪</text></svg>" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="case-study.css">
+</head>
+<body class="cs-body">
+
+  <!-- ===== TOP NAV ===== -->
+  <header class="top-nav">
+    <a href="index.html" class="logo" aria-label="Home">
+      <span class="logo-kanji">浪人</span>
+      <span class="logo-sub">RONIN</span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html"           class="nav-link">HOME</a>
+      <a href="index.html#beginning" class="nav-link">ORIGINS</a>
+      <a href="index.html#skills"    class="nav-link">ARSENAL</a>
+      <a href="index.html#battles"   class="nav-link active">BATTLES</a>
+      <a href="index.html#contact"   class="nav-link">CONTACT</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="mt-line"></span><span class="mt-line"></span><span class="mt-line"></span>
+    </button>
+  </header>
+
+  <!-- ===== MOBILE MENU ===== -->
+  <div class="mobile-menu" id="mobileMenu" hidden>
+    <nav class="mobile-menu-nav" aria-label="Mobile navigation">
+      <a href="index.html"           class="mobile-link">HOME</a>
+      <a href="index.html#beginning" class="mobile-link">ORIGINS</a>
+      <a href="index.html#skills"    class="mobile-link">ARSENAL</a>
+      <a href="index.html#battles"   class="mobile-link active">BATTLES</a>
+      <a href="index.html#contact"   class="mobile-link">CONTACT</a>
+    </nav>
+    <div class="mobile-menu-social">
+      <a href="https://github.com/Zolow-kuni" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+      <a href="https://linkedin.com/in/subham-joshi-b25778280" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+    </div>
+  </div>
+
+  <main class="cs-main">
+
+    <!-- MISSION / HERO -->
+    <p class="cs-eyebrow">Case Study · Educational Capstone</p>
+    <h1 class="cs-title">Automatidata × NYC TLC — Taxi Fare Prediction</h1>
+    <p class="cs-lead">An exploratory analysis of 22,699 New York City yellow-taxi trips (January 2017) to identify what drives taxi fares — distance, duration, and payment behavior.</p>
+    <p class="cs-note">This is a <strong>Google Advanced Data Analytics Certificate capstone</strong> and a consulting-<em>project scenario</em>. It is an educational exercise, not a real commercial client engagement.</p>
+
+    <!-- CONTEXT -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Context / The Problem</h2>
+      <p class="cs-body-text">The New York City Taxi &amp; Limousine Commission (TLC) oversees a fleet of licensed taxi and for-hire vehicles that make roughly a million trips a day. Despite that scale, riders have little reliable way to estimate a fare before entering a cab — a source of friction, disputes, and a trust gap with the industry.</p>
+      <p class="cs-body-text">In this scenario, the data team's task is to understand the strongest predictors of fare amount so a future pre-ride fare estimator could be built. This phase focuses on data quality, distributions, and identifying which variables best explain fare.</p>
+    </section>
+
+    <!-- APPROACH -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Approach — PACE Framework</h2>
+      <div class="mission-card">
+        <div class="mission-row"><span class="mission-key">Plan</span><span>Frame the fare-estimation problem, define scope, and identify the analytical questions.</span></div>
+        <div class="mission-row"><span class="mission-key">Analyze</span><span>Profile the dataset for quality and completeness; engineer features from timestamps.</span></div>
+        <div class="mission-row"><span class="mission-key">Construct</span><span>Compute descriptive statistics, regressions, correlations, and outlier analysis.</span></div>
+        <div class="mission-row"><span class="mission-key">Execute</span><span>Summarize findings and recommendations to guide downstream model construction.</span></div>
+      </div>
+    </section>
+
+    <!-- DATA -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">The Data</h2>
+      <p class="cs-body-text">22,699 yellow-taxi trips from January 2017 across 19 columns, with <strong>no missing values</strong>. Duration, speed, pickup timing (hour / day / month), vendor, and payment label were engineered to enrich the analysis.</p>
+    </section>
+
+    <!-- KEY FINDINGS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Key Findings</h2>
+      <div class="cs-grid">
+        <div class="cs-stat"><div class="cs-stat-label">Avg. Fare</div><div class="cs-stat-value">$21.70</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Avg. Distance</div><div class="cs-stat-value">3.84 mi</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Avg. Duration</div><div class="cs-stat-value">19.2 min</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Distance ↔ Fare</div><div class="cs-stat-value">r = 0.739</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Duration ↔ Fare</div><div class="cs-stat-value">r = 0.661</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Credit Card</div><div class="cs-stat-value">66.7%</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Cash</div><div class="cs-stat-value">30.2%</div></div>
+        <div class="cs-stat"><div class="cs-stat-label">Dataset Revenue</div><div class="cs-stat-value">$584,837.94</div></div>
+      </div>
+      <p class="cs-note">Outlier analysis flagged a small share of extreme fares and distances (IQR method), informing preprocessing before modeling.</p>
+    </section>
+
+    <!-- VISUAL EVIDENCE -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Visual Evidence</h2>
+      <img class="battle-thumb" src="assets/battles/automatidata_distance_duration_fare.png" alt="Regression of fare against trip distance and duration for 22,699 NYC TLC trips" loading="lazy">
+      <img class="battle-thumb" src="assets/battles/automatidata_correlation_heatmap.png" alt="Correlation heatmap of key numeric fare and trip features" loading="lazy">
+    </section>
+
+    <!-- BUSINESS INTERPRETATION -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Business Interpretation</h2>
+      <p class="cs-body-text">Trip distance shows the strongest observed relationship with fare among the tested variables, with duration also meaningfully related — important for slow, congested rides where distance alone understates the fare.</p>
+      <p class="cs-body-text">Payment method adds useful behavioral context: the majority (66.7%) of rides are paid by card, which is the channel that reliably captures tip amounts relevant to total revenue. Outlier handling matters for any downstream fare model.</p>
+    </section>
+
+    <!-- TOOLS -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Tools</h2>
+      <div class="mission-card">
+        <div class="mission-row"><span class="mission-key">Stack</span><span>Python · Pandas · NumPy · Seaborn · Regression &amp; Correlation · IQR / Outlier Analysis · PACE framework</span></div>
+      </div>
+    </section>
+
+    <!-- SOURCE -->
+    <section class="cs-section">
+      <h2 class="cs-section-title">Source</h2>
+      <div class="mission-card">
+        <div class="mission-row mission-source"><span class="mission-key">Repository</span><a href="https://github.com/Zolow-kuni/automatidata-nyc-tlc" target="_blank" rel="noopener noreferrer">github.com/Zolow-kuni/automatidata-nyc-tlc</a></div>
+      </div>
+      <div class="cs-cta-row">
+        <a href="index.html#battles" class="hero-cta">BACK TO BATTLES <span class="cta-arrow" aria-hidden="true"></span></a>
+        <a href="https://github.com/Zolow-kuni/automatidata-nyc-tlc" target="_blank" rel="noopener noreferrer" class="cs-back">View Repository</a>
+      </div>
+    </section>
+
+    <blockquote class="final-quote">"The strongest evidence is the one you can trace back to the source."<cite> — Path of Kuni</cite></blockquote>
+    <p class="footer-mark" aria-hidden="true">浪人 · Subham Joshi · 2026</p>
+
+  </main>
+
+  <script>
+    (function initMobileMenu() {
+      const toggle = document.getElementById('menuToggle');
+      const menu   = document.getElementById('mobileMenu');
+      if (!toggle || !menu) return;
+      function setMenu(open) {
+        menu.hidden = false;
+        menu.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        document.body.style.overflow = open ? 'hidden' : '';
+        if (!open) setTimeout(() => { if (!menu.classList.contains('open')) menu.hidden = true; }, 350);
+      }
+      toggle.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+      menu.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', () => setMenu(false)));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 720) setMenu(false); });
+    })();
+  </script>
+</body>
+</html>

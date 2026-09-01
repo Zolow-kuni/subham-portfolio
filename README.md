@@ -13,9 +13,15 @@ Personal portfolio site for Subham Joshi, Data Analyst based in India.
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Page structure and content |
-| `style.css` | All styling and animations |
-| `script.js` | Interactivity (scroll effects, nav, preloader, code-rain, wanderer) |
+| `index.html` | Homepage structure and content |
+| `style.css` | Global styling and animations |
+| `script.js` | Homepage interactivity (scroll effects, nav, preloader, code-rain, wanderer) |
+| `investments.html` | Investment Journey page |
+| `investments.css` | Investment Journey page styling |
+| `investments.js` | Investment Journey data and interactivity |
+| `case-study.html` | Automatidata × NYC TLC case study page |
+| `case-study.css` | Case study page layout |
+| `assets/battles/` | Battle evidence chart images |
 
 ## Features
 
@@ -31,6 +37,14 @@ Personal portfolio site for Subham Joshi, Data Analyst based in India.
 ## Local preview
 
 Open `index.html` directly in a browser — no server needed.
+
+## Source repositories
+
+Project evidence, notebooks, and data work backing the Battles and case study:
+
+- [Zolow-kuni/data-portfolio](https://github.com/Zolow-kuni/data-portfolio)
+- [Zolow-kuni/data-portfolio-2](https://github.com/Zolow-kuni/data-portfolio-2)
+- [Zolow-kuni/automatidata-nyc-tlc](https://github.com/Zolow-kuni/automatidata-nyc-tlc)
 
 ## Contact
 
